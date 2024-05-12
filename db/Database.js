@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 
 const connectDatabase = () => {
-  const password = encodeURIComponent(process.env.MONGO_PASSWORD.trim());
   mongoose
-    .connect(`mongodb+srv://admin:${password}@cluster0.bgtkqga.mongodb.net/db_app`, {
+    .connect(process.env.DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
