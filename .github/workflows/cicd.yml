@@ -11,20 +11,26 @@ jobs:
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
-      - name: Login to docker hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}     
-      - name: Build Docker Image
-        run: docker build -t laila22/node-app  .
-      - name: Publish Image to docker hub
-        run: docker push laila22/node-app:latest 
- 
+
+      # Build and push Docker image using Docker container action
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: laila22/node-app
+          tag_with_ref: true
+
   deploy:
     needs: build
-    runs-on: self-hosted 
+    runs-on: ubuntu-latest
     steps:
-      - name: Pull image from docker hub
-        run: docker pull laila22/node-app:latest 
-      - name: Delete old container
-        run: docker rm -f nodejs-app-container  
-      - name: Run Docker Container
-        run: docker run -d -p 4000:4000 --name nodejs-app-container -e MONGO_PASSWORD='${{ secrets.MONGO_PASSWORD }}' laila22/node-app
+      # Pull and run Docker image using Docker container action
+      - name: Pull and Run Docker Container
+        uses: docker://laila22/node-app
+        with:
+          env:
+            MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+          ports:
+            - "4000:4000"
+          name: nodejs-app-container
