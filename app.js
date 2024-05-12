@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 
 app.use(cors({
-  origin: ['http://16.170.236.85:3000',],
+  origin: ['http://51.20.10.119:3000',],
   credentials: true
 }));
 
@@ -51,7 +51,7 @@ const conversation = require("./controller/conversation");
 const message = require("./controller/message");
 const withdraw = require("./controller/withdraw");
 
-
+ 
 
 app.use("/api/v2/user", user);
 app.use("/api/v2/shop", shop);
