@@ -9,14 +9,8 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cookieParser());
 
-
-app.get('/', (req, res) => {
-  res.send('Hello World, from express');
-})
-
-
 app.use(cors({
-  origin: ['http://51.20.10.119:3000',],
+  origin: ['http://13.60.83.30:3000',],
   credentials: true
 }));
 
