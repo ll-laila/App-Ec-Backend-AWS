@@ -17,7 +17,7 @@ router.post(
     res.status(200).json({
       success: true,
       client_secret: myPayment.client_secret,
-    });
+    }); 
   })
 );
 
