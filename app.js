@@ -18,7 +18,7 @@ app.use("/",express.static("uploads"));
 app.use(bodyParser.urlencoded({extended:true,limit:"50mb"}));
 
 
-// Augmenter la limite de taille des données acceptées
+// Augmenter la limite de taille des données acceptées --
 app.use(express.json({ limit: '90mb' }));
 app.use(express.urlencoded({ limit: '90mb', extended: true }));
 
